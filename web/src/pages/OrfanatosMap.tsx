@@ -1,13 +1,21 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import { Map, TileLayer } from 'react-leaflet';
-import { FiPlus } from 'react-icons/fi';
-import '../styles/pages/orfanatos-map.css';
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { FiPlus, FiArrowRight } from 'react-icons/fi';
+import Leaflet from 'leaflet';
 
 import 'leaflet/dist/leaflet.css';
+import '../styles/pages/orfanatos-map.css';
 
 import mapMarkerImg from '../imagens/map-marker.svg';
+
+const mapIcon = Leaflet.icon({
+    iconUrl: mapMarkerImg,
+    iconSize:[58, 68],
+    iconAnchor:[29, 68],
+    popupAnchor: [178, 2]
+})
 
 function OrfanatosMap (){
     return (
@@ -17,7 +25,7 @@ function OrfanatosMap (){
                      <img src={mapMarkerImg} alt="Happy" />
 
                      <h2>Escolha um orfanato no seu mapa</h2>
-                     <p>Muitas criançãs estão esperando a sua visita :)</p>
+                     <p>Muitas criançãs estão esperando a sua visita :D </p>
                  </header>
 
                  <footer>
@@ -35,12 +43,24 @@ function OrfanatosMap (){
                 
                 
                 <TileLayer 
-                url={`https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                url={`https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
                 />
+
+                <Marker
+                    icon={mapIcon}
+                    position={[ -22.2408503, -50.7067616 ]} >
                 
+                    <Popup closeButton={false} minWidth={240} maxWidth={241} className="map-popup" >
+                    Lar do meninos
+                    <Link to="/orphanages/1">
+                        <FiArrowRight size={20} color="#fff" />
+                    </Link>
+                    </Popup>
+                </Marker>
+
             </Map>
             
-            <Link to="" className="create-orfanato"> 
+            <Link to="/orphanages/create" className="create-orfanato"> 
                 <FiPlus size={32} color="#fff" />
             </Link>
          </div>
