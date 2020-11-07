@@ -14,6 +14,11 @@ export default function OrphanagesMap(){
         navigation.navigate('OrphanagesDetails');
     }
 
+    function handlerNavigateToCreateOrphanage(){
+      navigation.navigate('SelectMapPosition');
+  }
+    
+
     return(
         <View style={styles.container}>
       <MapView 
@@ -37,7 +42,7 @@ export default function OrphanagesMap(){
             longitude: -50.697742,
           }}
         >
-          <Callout tooltip onPress={ ()=>{}  }>
+          <Callout tooltip onPress={ handlerNavigateOrphanagesDetails }>
             <View style={styles.calloutContainer}>
               <Text style={styles.calloutText}>Lar dos Meninos</Text>
             </View>
@@ -50,7 +55,7 @@ export default function OrphanagesMap(){
       <View style={styles.footer}>
         <Text style={styles.footerText}>2 orfanatos encontrados</Text>
 
-        <TouchableOpacity style={styles.createOrphanagesButton} onPress={ handlerNavigateOrphanagesDetails } >
+        <TouchableOpacity style={styles.createOrphanagesButton} onPress={ handlerNavigateToCreateOrphanage } >
           <Feather name="plus" size={20} color="#fff" />
         </TouchableOpacity>
       </View>
