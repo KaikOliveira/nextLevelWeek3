@@ -20,9 +20,14 @@ export default function OrphanageData() {
   const [] = useState('');
 
   const route = useRoute();
+  const params = route.params as OrphanageDataRouteParams;
 
   function handlerCreateOrphanage(){
-
+    console.log({
+      name,
+      about,
+      instructions
+    });
   }
 
   return (
@@ -60,6 +65,8 @@ export default function OrphanageData() {
       <TextInput
         style={[styles.input, { height: 110 }]}
         multiline
+        value={instructions}
+        onChangeText={setInstructions}
       />
 
       <Text style={styles.label}>Horario de visitas</Text>
