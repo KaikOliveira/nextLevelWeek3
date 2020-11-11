@@ -1,12 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, View, ScrollView, Text, StyleSheet, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { Feather, FontAwesome } from '@expo/vector-icons';
-
-import mapMarkerImg from '../images/map-marker.png';
+import { useRoute } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
 
+import api from '../services/api';
+
+import mapMarkerImg from '../images/map-marker.png';
+
+
+interface OrphanageDetailsRouteParams {
+    id: number;
+}
+
+interface Orphanage {
+    id : number;
+    name: string;
+    latitude : number;
+    longitude : number;
+    about: string;
+    instructions: string;
+    opening_hours: string;
+    open_on_weekends: boolean;
+    images: Array<{
+        id: number;
+        url: string;
+    }>
+
+}
+
 export default function OrphanagesDetails(){
+    const route = useRoute();
+    const [orphanage, setOrphanage] = useState<Orphanage>();
+
+    const params = route.params as OrphanageDetailsRouteParams;
+
+    useEffect(() => {
+        api.get(`orphanages/${params.id}`).then(response => {
+            setOrphanage(response.data)
+        });
+    }, [params.id]);
+
+    if (!orphanage) {
+        return(
+            <View style={styles.container}>
+                <Text style={styles.description}>Carregando...</Text>
+            </View>
+        );
+    }
+
     return(
         <ScrollView style={styles.container}>
       <View style={styles.imagesContainer}>
@@ -18,7 +61,7 @@ export default function OrphanagesDetails(){
       </View>
 
       <View style={styles.detailsContainer}>
-        <Text style={styles.title}>Orf. Esperança</Text>
+        <Text style={styles.title}>{orphanage.name}</Text>
         <Text style={styles.description}>Presta assistência a crianças de 06 a 15 anos que se encontre em situação de risco e/ou vulnerabilidade social.</Text>
       
         <View style={styles.mapContainer}>
