@@ -16,12 +16,7 @@ export default function Landing() {
 
         <main>
           <h1>Leve felicidade para o mundo</h1>
-          {/*<p>Visite ofanatos e mude o dia de muitas crianças.</p>*/}
-          <p>Joao o mais noia de todos</p>
-          <a href="https://www.instagram.com/mariajulia.placido/">Insta da mais gata</a>
-
-          <p>Lucas BALA BALA via dm</p>
-          <a href="https://www.instagram.com/pedro.boim/">Link para DM</a>
+          <p>Visite ofanatos e mude o dia de muitas crianças.</p>
         </main>
 
         <div className="location">
